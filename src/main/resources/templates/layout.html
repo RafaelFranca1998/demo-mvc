@@ -23,43 +23,64 @@
 <link href="/css/style.css" rel="stylesheet" />
 </head>
 <body>
-	<header>
+	<header th:replace="fragments/header :: cabecalho">
 		<div>header</div>
 	</header>
 
-	<div>
+	<div class="layout-main">
 		<aside>
-			<nav>
+			<nav th:replace="fragments/sidebar :: nav-sidebar">
 				<span>menu</span>
 			</nav>
 		</aside>
-		<section>
+		<section layout:fragment="corpo">
 			<div>conteudo principal das páginas</div>
 		</section>
 	</div>
-	
+
 	<footer th:replace="fragments/footer :: rodape">
 		<div>footer</div>
 	</footer>
-		<!-- Bootstrap core JavaScript
+	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-	<script src="/webjars/jquery-mask-plugin/1.14.15/dist/jquery.mask.min.js"></script>
-	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="/webjars/jquery-mask-plugin/1.14.15/dist/jquery.mask.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	
 	<script type="text/javascript">
-	    
+		var url = ''; 
+	
+		$(document).ready(function() { console.log("javascript is working"); });
+
+
+		
+		var url = '';
+		
+		$('button[id*="btn_"]').click(function() {
+			console.log("custom js is loaded");
+			//url = "http://localhost:8080/departamentos/cadastrar"
+			
+			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
+			
+		});
+		
+		$('#ok_confirm').on("click",function() {
+			document.location.href = url;
+		});
+		
 		$(function() {
 			$('[data-toggle="popover"]').popover();
 		});
-		
-		$(document).ready(function(){
-		    $(".navbar-toggle").click(function(){
-		        $(".sidebar").toggleClass("sidebar-open");
-		    })
-		});
 
+		$(document).ready(function() {
+			$(".navbar-toggle").click(function() {
+				$(".sidebar").toggleClass("sidebar-open");
+			})
+		});
 	</script>
 </body>
 </html>
