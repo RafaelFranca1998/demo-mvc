@@ -56,13 +56,10 @@
 	
 		$(document).ready(function() { console.log("javascript is working"); });
 
-
-		
 		var url = '';
 		
 		$('button[id*="btn_"]').click(function() {
 			console.log("custom js is loaded");
-			//url = "http://localhost:8080/departamentos/cadastrar"
 			
 			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
 			
