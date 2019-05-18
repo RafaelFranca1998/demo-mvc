@@ -27,7 +27,7 @@ public class CargoController {
 	private DepartamentoService departamentoService;
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar() {
+	public String cadastrar(Cargo cargo)  {
 		return "/cargo/cadastro";
 	}
 	
@@ -43,7 +43,7 @@ public class CargoController {
 		return "redirect:/cargos/cadastrar";
 	}
 	
-	@ModelAttribute("departaemetos")
+	@ModelAttribute("departamento")
 	public List<Departamento> listaDeDepartamentos() {
 		return departamentoService.buscarTodos();
 	}
