@@ -5,28 +5,36 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "ENDERECOS")
 public class Endereco extends AbstractEntity<Long> {
-
+	
+	
 	@Column(nullable = 	false)
 	private String logradouro;
 	
+	@NotBlank(message = "O nome do cargo é obrigatório.")
 	@Column(nullable = 	false)
 	private String bairro;
 	
 	@Column(nullable = 	false)
 	private String cidade;
 	
+	@NotNull(message = "Selecione uma UF.")
 	@Column(nullable = 	false, length = 2)
 	@Enumerated(EnumType.STRING)
 	private UF uf;
 	
+	@Size(message = "Deve conter {max} caracteres.")
 	@Column(nullable = 	false, length = 7)
 	private String cep;
-	
+
+	@NotNull(message = "Número é obrigatório. Informe 0 para s/n.")
 	@Column(nullable = 	false, length = 5)
 	private Integer numero;
 
