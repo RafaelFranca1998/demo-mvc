@@ -21,7 +21,7 @@ import com.mballem.curso.boot.service.CargoService;
 import com.mballem.curso.boot.service.DepartamentoService;
 
 @Controller
-@RequestMapping("/cargos")
+@RequestMapping("cargos")
 public class CargoController {
 
 	@Autowired
@@ -32,19 +32,19 @@ public class CargoController {
 
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cargo cargo, Departamento departamento) {
-		return "/cargo/cadastro";
+		return "cargo/cadastro";
 	}
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("cargos", cargoService.buscarTodos());
-		return "/cargo/lista";
+		return "cargo/lista";
 	}
 
 	@PostMapping("/salvar")
 	public String salvar(@Valid Cargo cargo, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
-			return "/cargo/cadastro";
+			return "cargo/cadastro";
 		}
 		cargoService.salvar(cargo);
 		attr.addFlashAttribute("success", "Cargo inserido com sucesso");
@@ -54,14 +54,14 @@ public class CargoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("cargo", cargoService.buscarPorId(id));
-		return "/cargo/cadastro";
+		return "cargo/cadastro";
 
 	}
 
 	@PostMapping("/editar")
 	public String editar(@Valid Cargo cargo, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
-			return "/cargos/cadastro";
+			return "cargos/cadastro";
 		}
 		cargoService.editar(cargo);
 		attr.addFlashAttribute("success", "Registro Atualizado com Sucesso!");

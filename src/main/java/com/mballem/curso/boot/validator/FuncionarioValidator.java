@@ -7,6 +7,7 @@ import org.springframework.validation.Validator;
 
 import com.mballem.curso.boot.domain.Funcionario;
 
+
 public class FuncionarioValidator implements Validator {
 
 	@Override
@@ -21,7 +22,9 @@ public class FuncionarioValidator implements Validator {
 	
 		if (f.getDataSaida()!= null) {
 			if ( f.getDataSaida().isBefore(entrada)) {
-				errors.rejectValue("dataSaida", "PosteriorDataEntrada.funcionario.dataSaida");
+				//retorna um erro para o objeto
+				//errors.rejectValue("dataSaida", "PosteriorDataEntrada.funcionario.dataSaida");
+				errors.rejectValue("dataEntrada", "PosteriorDataEntrada.funcionario.dataEntrada");
 			}
 		}
 	}

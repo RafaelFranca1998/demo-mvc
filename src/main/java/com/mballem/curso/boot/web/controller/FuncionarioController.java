@@ -40,25 +40,25 @@ public class FuncionarioController {
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(new FuncionarioValidator());
 	}
-	
+
 	@GetMapping("/cadastrar")
 	public String cadastrar(Funcionario funcionario) {
-		return "/funcionario/cadastro";
+		return "funcionario/cadastro";
 	}
 
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("funcionarios", funcionarioService.buscarTodos());
-		return "/funcionario/lista";
+		return "funcionario/lista";
 	}
 
 	@PostMapping("/salvar")
 	public String salvar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
-		
+
 		if (result.hasErrors()) {
-			return "/funcionario/cadastro";
+			return "funcionario/cadastro";
 		}
-		
+
 		funcionarioService.salvar(funcionario);
 		attr.addFlashAttribute("success", "Funcionário inserido com sucesso.");
 		return "redirect:/funcionarios/cadastrar";
@@ -72,11 +72,11 @@ public class FuncionarioController {
 
 	@PostMapping("/editar")
 	public String editar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
-		
+
 		if (result.hasErrors()) {
-			return "/funcionario/cadastro";
+			return "funcionario/cadastro";
 		}
-		
+
 		funcionarioService.editar(funcionario);
 		attr.addFlashAttribute("success", "Funcionário editado com sucesso.");
 		return "redirect:/funcionarios/cadastrar";
@@ -88,26 +88,26 @@ public class FuncionarioController {
 		attr.addFlashAttribute("success", "Funcionário removido com sucesso.");
 		return "redirect:/funcionarios/listar";
 	}
-	
+
 	@GetMapping("buscar/nome")
-	public String getPorNome(@RequestParam("nome")String nome,ModelMap model) {
+	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {
 		model.addAttribute("funcionarios", funcionarioService.buscarPorNome(nome));
-		return "/funcionario/lista";
+		return "funcionario/lista";
 	}
-	
+
 	@GetMapping("buscar/cargo")
-	public String getPorCargo(@RequestParam("id")Long id,ModelMap model) {
+	public String getPorCargo(@RequestParam("id") Long id, ModelMap model) {
 		model.addAttribute("funcionarios", funcionarioService.buscarPorCargo(id));
-		return "/funcionario/lista";
+		return "funcionario/lista";
 	}
-	
+
 	@GetMapping("/buscar/data")
 	public String getPorDatas(@RequestParam("entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate entrada,
-						@RequestParam ("saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate saida,
-						ModelMap model) {
-		model.addAttribute("funcionarios",funcionarioService.buscarPorDatas(entrada,saida));
-							return "/funcionario/lista";}
-	
+			@RequestParam("saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate saida, ModelMap model) {
+		model.addAttribute("funcionarios", funcionarioService.buscarPorDatas(entrada, saida));
+		return "funcionario/lista";
+	}
+
 	@ModelAttribute("cargos")
 	public List<Cargo> getCargos() {
 		return cargoService.buscarTodos();
